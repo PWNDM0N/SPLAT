@@ -1,0 +1,311 @@
+#matrix calcs from first principles 
+#
+#
+IF NeoHolder = 0 THEN
+  NeoHolder := 1;
+  MatrixZeroSetting();
+  #DHExcel();
+ENDIF;
+d := (PipeOutsideDiameter * 1.5) + 100;
+#128.5;
+#108.5;
+#PipeLengthholder := 
+IF Type[iHolder2] = 'Bend0.iam' or Type[iHolder2] = 'Bend90.iam' or Type[iHolder2] = 'Bend180.iam' or Type[iHolder2] = 'Bend270.iam' THEN
+  #
+  PipeLengthHolder := d;
+  #set rot and dist for xyz
+  IF UIBendAngle = 90 THEN
+    Rx := 0;
+    Ry := 0;
+    Rz := -90;
+    x := (PipeLengthHolder);
+    y := (-PipeLengthHolder);
+    z := 0;
+  ENDIF;
+  IF UIBendAngle = 180 THEN
+    Rx := 0;
+    Ry := -90;
+    Rz := 0;
+    x := PipeLengthHolder;
+    y := 0;
+    z := -PipeLengthHolder;
+  ENDIF;
+  IF UIBendAngle = 270 THEN
+    Rx := 0;
+    Ry := 0;
+    Rz := 90;
+    x := PipeLengthHolder;
+    y := PipeLengthHolder;
+    z := 0;
+  ENDIF;
+  IF UIBendAngle = 0 THEN
+    Rx := 0;
+    Ry := 90;
+    Rz := 0;
+    x := PipeLengthHolder;
+    y := 0;
+    z := PipeLengthHolder;
+    CH1 := 1;
+  ENDIF;
+ELSE
+  Rx := 0;
+  Ry := 0;
+  Rz := 0;
+  x := PipeLengthHolder;
+  y := 0;
+  z := 0;
+ENDIF;
+#Rx
+FOR i := 1 TO 9 DO
+  X_[i] := 0;
+ENDFOR;
+X_[1] := 1;
+X_[2] := 0;
+X_[3] := 0;
+X_[4] := 0;
+X_[5] := cos(Rx);
+X_[6] := -sin(Rx);
+X_[7] := 0;
+X_[8] := sin(Rx);
+X_[9] := cos(Rx);
+#
+#
+#
+#
+Y_[1] := cos(-Ry);
+Y_[2] := 0;
+Y_[3] := sin(-Ry);
+Y_[4] := 0;
+Y_[5] := 1;
+Y_[6] := 0;
+Y_[7] := -sin(-Ry);
+Y_[8] := 0;
+Y_[9] := cos(-Ry);
+#
+Z_[1] := cos(Rz);
+Z_[2] := -sin(Rz);
+Z_[3] := 0;
+Z_[4] := sin(Rz);
+Z_[5] := cos(Rz);
+Z_[6] := 0;
+Z_[7] := 0;
+Z_[8] := 0;
+Z_[9] := 1;
+#
+#
+XY_[1] := (X_[1] * Y_[1]) + (X_[2] * Y_[4]) + (X_[3] * Y_[7]);
+XY_[2] := (X_[1] * Y_[2]) + (X_[2] * Y_[5]) + (X_[3] * Y_[8]);
+XY_[3] := (X_[1] * Y_[3]) + (X_[2] * Y_[6]) + (X_[3] * Y_[9]);
+XY_[4] := (X_[4] * Y_[1]) + (X_[5] * Y_[4]) + (X_[6] * Y_[7]);
+XY_[5] := (X_[4] * Y_[2]) + (X_[5] * Y_[5]) + (X_[6] * Y_[8]);
+XY_[6] := (X_[4] * Y_[3]) + (X_[5] * Y_[6]) + (X_[6] * Y_[9]);
+XY_[7] := (X_[7] * Y_[1]) + (X_[8] * Y_[4]) + (X_[9] * Y_[7]);
+XY_[8] := (X_[7] * Y_[2]) + (X_[8] * Y_[5]) + (X_[9] * Y_[8]);
+XY_[9] := (X_[7] * Y_[3]) + (X_[8] * Y_[6]) + (X_[9] * Y_[9]);
+#
+#
+#
+XYZ_[1] := (XY_[1] * Z_[1]) + (XY_[2] * Z_[4]) + (XY_[3] * Z_[7]);
+XYZ_[2] := (XY_[1] * Z_[2]) + (XY_[2] * Z_[5]) + (XY_[3] * Z_[8]);
+XYZ_[3] := (XY_[1] * Z_[3]) + (XY_[2] * Z_[6]) + (XY_[3] * Z_[9]);
+XYZ_[4] := (XY_[4] * Z_[1]) + (XY_[5] * Z_[4]) + (XY_[6] * Z_[7]);
+XYZ_[5] := (XY_[4] * Z_[2]) + (XY_[5] * Z_[5]) + (XY_[6] * Z_[8]);
+XYZ_[6] := (XY_[4] * Z_[3]) + (XY_[5] * Z_[6]) + (XY_[6] * Z_[9]);
+XYZ_[7] := (XY_[7] * Z_[1]) + (XY_[8] * Z_[4]) + (XY_[9] * Z_[7]);
+XYZ_[8] := (XY_[7] * Z_[2]) + (XY_[8] * Z_[5]) + (XY_[9] * Z_[8]);
+XYZ_[9] := (XY_[7] * Z_[3]) + (XY_[8] * Z_[6]) + (XY_[9] * Z_[9]);
+#
+XYZ_4x4[1] := XYZ_[1];
+XYZ_4x4[2] := XYZ_[2];
+XYZ_4x4[3] := XYZ_[3];
+XYZ_4x4[4] := x;
+XYZ_4x4[5] := XYZ_[4];
+XYZ_4x4[6] := XYZ_[5];
+XYZ_4x4[7] := XYZ_[6];
+XYZ_4x4[8] := y;
+XYZ_4x4[9] := XYZ_[7];
+XYZ_4x4[10] := XYZ_[8];
+XYZ_4x4[11] := XY_[9];
+XYZ_4x4[12] := z;
+XYZ_4x4[13] := 0;
+XYZ_4x4[14] := 0;
+XYZ_4x4[15] := 0;
+XYZ_4x4[16] := 1;
+#
+FOR i := 1 TO 16 DO
+  MatrixInputB[i] := XYZ_4x4[i];
+ENDFOR;
+#
+FOR i := 1 TO 16 DO
+  MatrixInputA[i] := XYZ_4x4[i];
+ENDFOR;
+#
+#
+#
+i := iHolder2 - 1;
+IF i = 0 THEN
+  i := 1;
+  MatrixInputA[1] := Row1Column1[i];
+  MatrixInputA[2] := Row1Column2[i];
+  MatrixInputA[3] := Row1Column3[i];
+  MatrixInputA[4] := Row1Column4[i];
+  MatrixInputA[5] := Row2Column1[i];
+  MatrixInputA[6] := Row2Column2[i];
+  MatrixInputA[7] := Row2Column3[i];
+  MatrixInputA[8] := Row2Column4[i];
+  MatrixInputA[9] := Row3Column1[i];
+  MatrixInputA[10] := Row3Column2[i];
+  MatrixInputA[11] := Row3Column3[i];
+  MatrixInputA[12] := Row3Column4[i];
+  MatrixInputA[13] := Row4Column1[i];
+  MatrixInputA[14] := Row4Column2[i];
+  MatrixInputA[15] := Row4Column3[i];
+  MatrixInputA[16] := Row4Column4[i];
+ELSE
+  MatrixInputA[1] := Row1Column1[i];
+  MatrixInputA[2] := Row1Column2[i];
+  MatrixInputA[3] := Row1Column3[i];
+  MatrixInputA[4] := Row1Column4[i];
+  MatrixInputA[5] := Row2Column1[i];
+  MatrixInputA[6] := Row2Column2[i];
+  MatrixInputA[7] := Row2Column3[i];
+  MatrixInputA[8] := Row2Column4[i];
+  MatrixInputA[9] := Row3Column1[i];
+  MatrixInputA[10] := Row3Column2[i];
+  MatrixInputA[11] := Row3Column3[i];
+  MatrixInputA[12] := Row3Column4[i];
+  MatrixInputA[13] := Row4Column1[i];
+  MatrixInputA[14] := Row4Column2[i];
+  MatrixInputA[15] := Row4Column3[i];
+  MatrixInputA[16] := Row4Column4[i];
+ENDIF;
+#
+MatrixAxB();
+#
+Row1Column1[iHolder2] := MatrixOutput[1];
+Row1Column2[iHolder2] := MatrixOutput[2];
+Row1Column3[iHolder2] := MatrixOutput[3];
+Row1Column4[iHolder2] := MatrixOutput[4];
+Row2Column1[iHolder2] := MatrixOutput[5];
+Row2Column2[iHolder2] := MatrixOutput[6];
+Row2Column3[iHolder2] := MatrixOutput[7];
+Row2Column4[iHolder2] := MatrixOutput[8];
+Row3Column1[iHolder2] := MatrixOutput[9];
+Row3Column2[iHolder2] := MatrixOutput[10];
+Row3Column3[iHolder2] := MatrixOutput[11];
+Row3Column4[iHolder2] := MatrixOutput[12];
+Row4Column1[iHolder2] := MatrixOutput[13];
+Row4Column2[iHolder2] := MatrixOutput[14];
+Row4Column3[iHolder2] := MatrixOutput[15];
+Row4Column4[iHolder2] := MatrixOutput[16];
+#
+IF CH1 = 2 THEN
+  #
+  MatrixInputA[1] := Row1Column1[i];
+  MatrixInputA[2] := Row1Column2[i];
+  MatrixInputA[3] := Row1Column3[i];
+  MatrixInputA[4] := Row1Column4[i];
+  MatrixInputA[5] := Row2Column1[i];
+  MatrixInputA[6] := Row2Column2[i];
+  MatrixInputA[7] := Row2Column3[i];
+  MatrixInputA[8] := Row2Column4[i];
+  MatrixInputA[9] := Row3Column1[i];
+  MatrixInputA[10] := Row3Column2[i];
+  MatrixInputA[11] := Row3Column3[i];
+  MatrixInputA[12] := Row3Column4[i];
+  MatrixInputA[13] := Row4Column1[i];
+  MatrixInputA[14] := Row4Column2[i];
+  MatrixInputA[15] := Row4Column3[i];
+  MatrixInputA[16] := Row4Column4[i];
+  #
+  Rx := 0;
+  IF Rx <> 0 THEN
+    #
+    MatrixInputB[1] := cos(Rx);
+    MatrixInputB[2] := -sin(Rx);
+    MatrixInputB[3] := 0;
+    MatrixInputB[4] := 0;
+    MatrixInputB[5] := sin(Rx);
+    MatrixInputB[6] := cos(Rx);
+    MatrixInputB[7] := 0;
+    MatrixInputB[8] := 0;
+    MatrixInputB[9] := 0;
+    MatrixInputB[10] := 0;
+    MatrixInputB[11] := 1;
+    MatrixInputB[12] := 0;
+    MatrixInputB[13] := 0;
+    MatrixInputB[14] := 0;
+    MatrixInputB[15] := 0;
+    MatrixInputB[16] := 1;
+  ENDIF;
+  #
+  #
+  #
+  Ry := 0;
+  IF Ry <> 0 THEN
+    #
+    MatrixInputB[1] := cos(-Ry);
+    MatrixInputB[2] := 0;
+    MatrixInputB[3] := sin(-Ry);
+    MatrixInputB[4] := 0;
+    MatrixInputB[5] := 0;
+    MatrixInputB[6] := 1;
+    MatrixInputB[7] := 0;
+    MatrixInputB[8] := 0;
+    MatrixInputB[9] := -sin(-Ry);
+    MatrixInputB[10] := 0;
+    MatrixInputB[11] := cos(-Ry);
+    MatrixInputB[12] := 0;
+    MatrixInputB[13] := 0;
+    MatrixInputB[14] := 0;
+    MatrixInputB[15] := 0;
+    MatrixInputB[16] := 1;
+  ENDIF;
+  #
+  Rz := 0;
+  IF Rz <> 0 THEN
+    #
+    MatrixInputB[1] := cos(Rz);
+    MatrixInputB[2] := -sin(Rz);
+    MatrixInputB[3] := 0;
+    MatrixInputB[4] := 0;
+    MatrixInputB[5] := sin(Rz);
+    MatrixInputB[6] := cos(Rz);
+    MatrixInputB[7] := 0;
+    MatrixInputB[8] := 0;
+    MatrixInputB[9] := 0;
+    MatrixInputB[10] := 0;
+    MatrixInputB[11] := 1;
+    MatrixInputB[12] := 0;
+    MatrixInputB[13] := 0;
+    MatrixInputB[14] := 0;
+    MatrixInputB[15] := 0;
+    MatrixInputB[16] := 1;
+  ENDIF;
+  #
+  IF Rz <> 0 or Ry <> 0 or Rz <> 0 THEN
+    #
+    MatrixAxB();
+    #
+    Row1Column1[iHolder2] := MatrixOutput[1];
+    Row1Column2[iHolder2] := MatrixOutput[2];
+    Row1Column3[iHolder2] := MatrixOutput[3];
+    Row1Column4[iHolder2] := MatrixOutput[4];
+    Row2Column1[iHolder2] := MatrixOutput[5];
+    Row2Column2[iHolder2] := MatrixOutput[6];
+    Row2Column3[iHolder2] := MatrixOutput[7];
+    Row2Column4[iHolder2] := MatrixOutput[8];
+    Row3Column1[iHolder2] := MatrixOutput[9];
+    Row3Column2[iHolder2] := MatrixOutput[10];
+    Row3Column3[iHolder2] := MatrixOutput[11];
+    Row3Column4[iHolder2] := MatrixOutput[12];
+    Row4Column1[iHolder2] := MatrixOutput[13];
+    Row4Column2[iHolder2] := MatrixOutput[14];
+    Row4Column3[iHolder2] := MatrixOutput[15];
+    Row4Column4[iHolder2] := MatrixOutput[16];
+  ENDIF;
+  #
+ENDIF;
+#
+iHolder2 := iHolder2 + 1;
+RETURN;
