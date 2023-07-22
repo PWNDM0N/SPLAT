@@ -1,0 +1,46 @@
+#D.Wilson 02/01/23
+#Sets the list termination to equal current termination
+IF CompOrPipe = 'P' or CompOrPipe = 0 THEN
+  NumberHolder := 2;
+ELSE
+  NumberHolder := NumberHolder + 1;
+ENDIF;
+##
+ComponentCounter := ComponentCounter + 1;
+IF PipeRunCounter = 0 THEN
+  Numberholder2 := Numberholder2 + 1;
+ENDIF;
+#
+IF Numberholder2 <> 0 and PipeRunCounter = 0 THEN
+  tPiperunCounter := NumberHolder;
+ELSE
+  tPiperunCounter := PipeRunCounter + ComponentCounter;
+ENDIF;
+LineNumber := tPiperunCounter;
+#ComponentCounter
+Termination[tPiperunCounter] := TerminationCurrent;
+#
+#showing bend angle if a bend is selected
+IF TerminationCurrent = 'BE' THEN
+  UIBendAngleList[tPiperunCounter] := UIBendAngle;
+ENDIF;
+#
+#Reset Input parameter TerminationCurrent
+TerminationCurrent := NOVALUE;
+#
+#Re-initialise the cls trugger to update StrHolder
+Timer(0, CLSTriggerReset());
+#
+#Misunderstanding of how timers work
+Timer(0, SPLAT());
+#
+PiperunCounterTermination := tPiperunCounter;
+#ComponentHeader[Piperuncounter] := 'Component' & " " & ComponentCounter;
+#Numberholder where piperuncounter is
+PipeRunHeader[tPiperunCounter] := 'Component' & " " & PipeRunCounter & StrHolder;
+CompOrPipe := 'C';
+RETURN;
+#
+#
+#
+#make a cls table with 1 to a, 2 to b for numberholder and strholder
