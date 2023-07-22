@@ -1,0 +1,72 @@
+#D.Wilson 04/04/23
+#assigns DH parameters used for inserting a part into a model
+# 26/03/23 Changed this Method to be dynamic
+#26/04/23 currently creating DH params and matrix tranformations
+IF iHolder2 = NOVALUE THEN
+  iHolder2 := 1;
+ENDIF;
+IF Number6mPipes[LineNumber] > 0 THEN
+  #running the loop once for each 6m length
+  t1 := Number6mPipes[LineNumber];
+  FOR i := 1 TO t1 DO
+    PipeLengthHolder := 6000;
+    Type[iHolder2] := "Pipework6m.iam";
+    #Creates DH Params for this component, then writes to excel
+    DHMaster();
+    #Creates matrix transformation
+    Transformation_Matrix_Pipe();
+    #Writes these values to excel
+    DHExcel();
+    #
+    #FlangeFittingKit
+    PipeLengthHolder := 1;
+    Type[iHolder2] := FileNameFFK;
+    Transformation_Matrix_FFK();
+    #Writes values to excel
+    DHExcel();
+    #
+  ENDFOR;
+ENDIF;
+#F Number6mPipes[PipeRunCounter] > 0 THEN
+IF PipeLengthOdd1[LineNumber] > 0 THEN
+  PipeLengthHolder := PipeLengthOdd1[LineNumber] * 1000;
+  t2 := NumberOfPipes[LineNumber] - Number6mPipes[LineNumber];
+  Type[iHolder2] := "Pipework" & LineNumber & ".ipt";
+  #here I am holding the filename to use in copying over .ipt values in Saveipt()
+  PipeworkHolder[LineNumber] := Type[iHolder2];
+  #Creates DH Params for this component
+  DHMaster();
+  #Creates matrix transformation
+  Transformation_Matrix_Pipe();
+  #Writes values to excel
+  DHExcel();
+  #
+  ##FlangeFittingKit
+  PipeLengthHolder := 1;
+  Type[iHolder2] := FileNameFFK;
+  Transformation_Matrix_FFK();
+  #Writes values to excel
+  DHExcel();
+  #
+ENDIF;
+IF PipeLengthOdd2[LineNumber] > 0 THEN
+  PipeLengthHolder := PipeLengthOdd2[LineNumber] * 1000;
+  Type[iHolder2] := "Pipework2" & LineNumber & ".ipt";
+  #here I am holding the filename to use in copying over .ipt values in Saveipt()
+  Pipework2Holder[LineNumber] := Type[iHolder2];
+  #Creates DH Params for this component
+  DHMaster();
+  #Creates matrix tranformation
+  Transformation_Matrix_Pipe();
+  #Writes values to excel
+  DHExcel();
+  #
+  #FlangeFittingKit
+  PipeLengthHolder := 1;
+  Type[iHolder2] := FileNameFFK;
+  Transformation_Matrix_FFK();
+  #Writes values to excel
+  DHExcel();
+  #
+ENDIF;
+RETURN;
