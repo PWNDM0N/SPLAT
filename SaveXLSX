@@ -1,0 +1,19 @@
+#
+t := GetDate('LocalTime');
+t1 := StrSubst(t, '/', '-');
+t2 := StrSubst(t1, '.', '-');
+t3 := StrSubst(t2, ':', '-');
+DirectoryName := '[Client]C:\Users\d.wilson\Downloads\CamosOutputfile' & t3 & '\';
+DirCreate(DirectoryName);
+#
+t1 := DirectoryName & '\EmbeddingTest.xlsx';
+FileCopy('[Client]C:\Users\d.wilson\OneDrive - Schenck Process\Documents\Dan masters project\Inventor\Pipework\EmbeddingTest.xlsx', t1);
+#
+t2 := DirectoryName & '\PipeworkFlange.xlsx';
+FileCopy('[Client]C:\Users\d.wilson\OneDrive - Schenck Process\Documents\Dan masters project\Inventor\Pipework\PipeworkFlange.xlsx', t2);
+#
+t3 := DirectoryName & '\Pipework.xlsx';
+FileCopy('[Client]C:\Users\d.wilson\OneDrive - Schenck Process\Documents\Dan masters project\Inventor\Pipework\Pipework.xlsx', t3);
+#
+#
+RETURN;
