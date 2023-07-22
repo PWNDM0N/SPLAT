@@ -1,0 +1,26 @@
+#D.Wilson 02/01/23
+#Uses existing Excel sheet to create output excel file - Piperun uses pipes created in WriteExcelPipe();
+#
+IF CounterXOXO = 0 THEN
+  #Fhandle := FileOpen("[Client]C:\Users\d.wilson\OneDrive - Schenck Process\Documents\Dan masters project\Inventor\Pipework\Pipework.xlsx", 'RB');
+  SaveXLSX();
+  t := DirectoryName & "\Pipework.xlsx";
+  Fhandle := FileOpen(t, 'RB');
+  XLSXFilePiperun := FileReadBin(Fhandle, 'RAW');
+  FileClose(Fhandle);
+  XLSXHandle := XLSXOpen(XLSXFilePiperun);
+  CounterXOXO := 1;
+ENDIF;
+##
+#Assigns values to excel cells Sheet, Row, Colum
+IF Termination[PiperunCounterTermination] = 'BE' THEN
+  DHCalcsBend();
+ENDIF;
+IF Termination[PiperunCounterTermination] = 'TB' THEN
+  DHCalcsTerminalBox();
+ENDIF;
+#
+WriteExcelTermination2();
+#
+RETURN;
+#
