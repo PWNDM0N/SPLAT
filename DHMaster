@@ -1,0 +1,25 @@
+#D.Wilson 04/04/23
+#Assigns DH values for pipes
+#the matrix is oriented In DHcalcs bend, so pipe can always be laid in the same direction
+#
+IF PipeLengthHolder <> 0 THEN
+  #ai is the distance between zi-1 and xi along the direction of xi
+  L_Trajectory[iHolder2] := PipeLengthHolder;
+  #alpha: 
+  #(In Degrees) alphai is the angle between zi-1 and zi along xi
+  ThetaY_Trajectory[iHolder2] := 0;
+  #d:         
+  #di is the distance between zi-1 and xi along the direction of zi-1
+  R_Trajectory[iHolder2] := 0;
+  #
+  #theta: 
+  #(In Degrees) thetai is the angle between xi-1 and xi along zi-1
+  ThetaZ_Trajectory[iHolder2] := 0;
+ENDIF;
+#
+#Changing direction
+CASE Type[LineNumber]
+  IS "Bend0.iam" or "Bend90.iam" or "Bend180.iam" or "Bend270.iam" DO
+    DHBend();
+ENDCASE;
+RETURN;
