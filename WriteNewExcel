@@ -1,0 +1,55 @@
+#Creates a new XLSX file, edits then saves into a zip
+#Created - D.Wilson 22/12/2022
+#
+#When 'xlsxFile is novalue, a new xlsx file is generated
+XLSXFile := NOVALUE;
+#Set handle and open file
+XLSXHandle := XLSXOpen(XLSXFile);
+#
+#Assigning values to cells
+XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, 1, 1, 'FlangeOutsideDiameter');
+XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, 1, 2, FlangeOutsideDiameter);
+XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, 1, 3, 'mm');
+#
+XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, 2, 1, 'FlangeInsideDiameter');
+XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, 2, 2, FlangeInsideDiameter);
+XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, 2, 3, 'mm');
+#
+XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, 3, 1, 'FlangeBoltHoleDiameter');
+XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, 3, 2, FlangeBoltHoleDiameter);
+XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, 3, 3, 'mm');
+#
+XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, 4, 1, 'FlangePCD');
+XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, 4, 2, FlangePCD);
+XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, 4, 3, 'mm');
+#
+XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, 5, 1, 'FlangeBoltFirstAngle');
+XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, 5, 2, FlangeBoltFirstAngle);
+XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, 5, 3, 'deg');
+#
+XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, 6, 1, 'FlangeBoltNumber');
+XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, 6, 2, FlangeBoltNumber);
+XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, 6, 3, 'ul');
+#
+XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, 7, 1, 'PipeOutsideDiameter');
+XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, 7, 2, PipeOutsideDiameter);
+XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, 7, 3, 'mm');
+#
+XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, 8, 1, 'PipeWallThickness');
+XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, 8, 2, PipeWallThickness);
+XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, 8, 3, 'mm');
+#
+XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, 9, 1, 'PipeLength');
+XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, 9, 2, PipeLength[PipeRunCounter]);
+XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, 9, 3, 'mm');
+#
+#Assigns changes to original file (binary feature)
+XLSXFile := XLSXExec(XLSXHandle, 'GET_XLSX');
+#
+#Close the internal editor
+XLSXClose(XLSXHandle);
+#
+SaveXLSXZip();
+#
+RETURN;
+#
