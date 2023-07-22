@@ -1,0 +1,27 @@
+#D.Wilson 04/04/23
+#
+#
+#D.Wilson 02/01/23
+#Sets the list termination to equal current termination
+Termination();
+#
+#
+#D.Wilson 02/01/23
+#Uses existing Excel sheet to create output excel file - Piperun uses pipes created in WriteExcelPipe();
+#
+WriteExcelTermination();
+#then calls DHCalcsBend or DHCalcsTerminalbox, which assign DH values
+#
+#for turning self off - next item expected is a pipe
+IF TerminationCurrent = 'TB' THEN
+  SpoonHolder := 2;
+ELSE
+  ADD_PIPE_LENGTH_HOLDER := 0;
+  ADD_TERMINATION_HOLDER := 1;
+ENDIF;
+#
+RETURN;
+#
+# 
+##
+#
