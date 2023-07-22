@@ -1,0 +1,40 @@
+#I need to change number 6mpipes, ect over to being list features
+IF iHolder2 = NOVALUE THEN
+  iHolder2 := 1;
+ENDIF;
+#
+i := (UIBendAngle * Pi) / 180;
+#
+IF Termination[LineNumber] = 'BE' THEN
+  #bend radius calculation
+  BendRadius := PipeOutsideDiameter * 1.5;
+  #finding the offset position - all bends have a standard 100mm straight section
+  BendOffset := BendRadius + 100;
+  #
+  #assigns the DH values
+  CASE UIBendAngleList[LineNumber]
+    IS 0 DO
+      Type[iHolder2] := "Bend0.iam";
+    IS 90 DO
+      Type[iHolder2] := "Bend90.iam";
+    IS 180 DO
+      Type[iHolder2] := "Bend180.iam";
+    IS 270 DO
+      Type[iHolder2] := "Bend270.iam";
+  ENDCASE;
+  #Calcs DH Params
+  DHBend();
+  #Calcs Matrix transformation
+  Transformation_Matrix_Bend();
+  #Writes values to excel
+  DHExcel();
+  PipeLengthHolder := BendOffset;
+  #
+  #
+  PipeLengthHolder := 1;
+  Type[iHolder2] := FileNameFFK;
+  Transformation_Matrix_FFK();
+  #Writes values to excel
+  DHExcel();
+ENDIF;
+RETURN;
