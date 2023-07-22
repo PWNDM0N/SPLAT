@@ -1,0 +1,67 @@
+#D.Wilson 04/01/23
+#Looping method to set excel table values iteratively depending on number of piperuns inputted
+#
+IF PipeRunCounter < 1 THEN
+  WinMessage('INFO', 'Error in Piperun Method!');
+  RETURN 0;
+ENDIF;
+#Runs until holder is the same as piperun counter
+IF PiperunHolder >= PipeRunCounter THEN
+  PiperunHolder := 0;
+  RETURN 0;
+ELSE
+  PiperunHolder := PiperunHolder + 1;
+  #
+ENDIF;
+#
+#Calculate the number of 6m pipes
+IF PipeLengthOdd1[LineNumber] <> 0 and PipeLengthOdd1[LineNumber] <> NOVALUE THEN
+  c1 := 1;
+ELSE
+  c1 := 0;
+ENDIF;
+IF PipeLengthOdd2[LineNumber] <> 0 and PipeLengthOdd2[LineNumber] <> NOVALUE THEN
+  c2 := 1;
+ELSE
+  c2 := 0;
+ENDIF;
+Number6mPipes[LineNumber] := NumberOfPipes[LineNumber] - c1 - c2;
+#The values are in order in the excel table, loops from the Piperun holder to fill in rows as required
+#Finding appropriate cell numbers
+IF CompOrPipe = 'P' THEN
+  tCounter := LineNumber * 6;
+  t1 := tCounter - 5;
+  t2 := t1 + 1;
+  t3 := t2 + 1;
+  t4 := t3 + 1;
+  t5 := t4 + 1;
+  t6 := t5 + 1;
+  #setting values in excel Sheet, Row, Column
+  XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, t1, 2, "Piperoute" & LineNumber);
+  XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, t1, 1, "PipeID");
+  XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, t1, 3, "Text");
+  #
+  XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, t2, 2, NumberOfPipes[LineNumber]);
+  XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, t2, 1, "NumberOfPipes" & PipeRunCounter);
+  XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, t2, 3, "mm");
+  #
+  XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, t3, 2, PipeLengthOdd1[LineNumber]);
+  XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, t3, 1, "PipeLengthOdd1" & PipeRunCounter);
+  XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, t3, 3, "mm");
+  #
+  XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, t4, 2, PipeLengthOdd2[LineNumber]);
+  XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, t4, 1, "PipeLengthOdd2" & PipeRunCounter);
+  XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, t4, 3, "mm");
+  #
+  XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, t5, 2, TotalPipeLengthHolder[LineNumber]);
+  XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, t5, 1, "TotalPipeLength" & PipeRunCounter);
+  XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, t5, 3, "mm");
+  #
+  XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, t6, 2, Number6mPipes[LineNumber]);
+  XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, t6, 1, "Number6mPipes" & PipeRunCounter);
+  XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, t6, 3, "ul");
+  #Nu
+  XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, t1, 1, "PipeID");
+  #
+ENDIF;
+RETURN;
