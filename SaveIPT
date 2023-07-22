@@ -1,0 +1,72 @@
+#D.Wilson 01/01/23
+#Copying word files and inventor file templates
+#
+#Copying Product word doc
+ProductDoc := DirectoryName & '\SPLAT.docx';
+FileCopy('[Client]C:\Users\d.wilson\OneDrive - Schenck Process\Documents\Dan masters project\Inventor\Pipework\SPLAT.docx', ProductDoc);
+#
+#Copying inventor files
+FileNameFlange := DirectoryName & '\Flange.ipt';
+FileCopy('[Client]C:\Users\d.wilson\OneDrive - Schenck Process\Documents\Dan masters project\Inventor\Pipework\Flange.ipt', FileNameFlange);
+#
+#
+FileNamePipe := DirectoryName & '\Pipe.ipt';
+FileCopy('[Client]C:\Users\d.wilson\OneDrive - Schenck Process\Documents\Dan masters project\Inventor\Pipework\Pipe.ipt', FileNamePipe);
+#
+#
+IF MaxIndex(PipeworkHolder[]) > 0 THEN
+  FOR i := 1 TO MaxIndex(PipeworkHolder[]) DO
+    t := '\' & PipeworkHolder[i];
+    FileNamePipework[i] := DirectoryName & t;
+    FileCopy('[Client]C:\Users\d.wilson\OneDrive - Schenck Process\Documents\Dan masters project\Inventor\Pipework\Pipework.ipt', FileNamePipework[i]);
+  ENDFOR;
+ENDIF;
+#
+#
+FileNamePipe6m := DirectoryName & '\Pipe6m.ipt';
+FileCopy('[Client]C:\Users\d.wilson\OneDrive - Schenck Process\Documents\Dan masters project\Inventor\Pipework\Pipe6m.ipt', FileNamePipe6m);
+#
+FileNamePipe2 := DirectoryName & '\Pipe2.ipt';
+FileCopy('[Client]C:\Users\d.wilson\OneDrive - Schenck Process\Documents\Dan masters project\Inventor\Pipework\Pipe2.ipt', FileNamePipe2);
+#
+FileNamePipe2 := DirectoryName & '\Pipe2.stp';
+FileCopy('[Client]C:\Users\d.wilson\OneDrive - Schenck Process\Documents\Dan masters project\Inventor\Pipework\Pipe2.ipt', FileNamePipe2);
+#
+IF MaxIndex(Pipework2Holder[]) > 0 THEN
+  FOR i := 1 TO MaxIndex(Pipework2Holder[]) DO
+    t := '\' & Pipework2Holder[i];
+    FileNamePipework2[i] := DirectoryName & t;
+    FileCopy('[Client]C:\Users\d.wilson\OneDrive - Schenck Process\Documents\Dan masters project\Inventor\Pipework\Pipework.ipt', FileNamePipework2[i]);
+  ENDFOR;
+ENDIF;
+#
+FilenamePipework6m := DirectoryName & '\Pipework6m.iam';
+FileCopy('[Client]C:\Users\d.wilson\OneDrive - Schenck Process\Documents\Dan masters project\Inventor\Pipework\Pipework6m.iam', FilenamePipework6m);
+#
+FileNamePiperoute := DirectoryName & '\PipeRoute.iam';
+FileCopy('[Client]C:\Users\d.wilson\OneDrive - Schenck Process\Documents\Dan masters project\Inventor\Pipework\PipeRoute.iam', FileNamePiperoute);
+#
+FileNameBendipt := DirectoryName & '\Bend.ipt';
+FileCopy('[Client]C:\Users\d.wilson\OneDrive - Schenck Process\Documents\Dan masters project\Inventor\Pipework\Bend.ipt', FileNameBendipt);
+#
+FileNameBend := DirectoryName & '\Bend.iam';
+FileCopy('[Client]C:\Users\d.wilson\OneDrive - Schenck Process\Documents\Dan masters project\Inventor\Pipework\Bend.iam', FileNameBend);
+#
+File90 := DirectoryName & '\Bend90.iam';
+FileCopy('[Client]C:\Users\d.wilson\OneDrive - Schenck Process\Documents\Dan masters project\Inventor\Pipework\Bend90.iam', File90);
+#
+File0 := DirectoryName & '\Bend0.iam';
+FileCopy('[Client]C:\Users\d.wilson\OneDrive - Schenck Process\Documents\Dan masters project\Inventor\Pipework\Bend0.iam', File0);
+#
+File180 := DirectoryName & '\Bend180.iam';
+FileCopy('[Client]C:\Users\d.wilson\OneDrive - Schenck Process\Documents\Dan masters project\Inventor\Pipework\Bend180.iam', File180);
+#
+File270 := DirectoryName & '\Bend270.iam';
+FileCopy('[Client]C:\Users\d.wilson\OneDrive - Schenck Process\Documents\Dan masters project\Inventor\Pipework\Bend270.iam', File270);
+#
+FileTB := DirectoryName & FilenameTB;
+FileCopy('[Client]C:\Users\d.wilson\OneDrive - Schenck Process\Documents\Dan masters project\Inventor\Pipework\Terminalbox\' & FilenameTB, FileTB);
+#
+FileFFK := DirectoryName & FileNameFFK;
+FileCopy('[Client]C:\Users\d.wilson\OneDrive - Schenck Process\Documents\Dan masters project\Inventor\Pipework\FFK\' & FileNameFFK, FileFFK);
+RETURN;
