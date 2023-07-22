@@ -1,0 +1,68 @@
+#D.Wilson 01/01/22
+#Calculating data about the Piperoute from user input values
+#
+#PipeholderCounter  and PipeHolder used in PipeCalcs() and Pipecalcs2() as intermidatary values
+PipeHolderCounter := 0;
+PipeHolder := TotalPipeLength;
+#
+#PiperunCounter used in list feaures as the piperun number
+PipeRunCounter := PipeRunCounter + 1;
+#
+tPiperunCounter := PipeRunCounter + ComponentCounter;
+#
+LineNumber := tPiperunCounter;
+#Run method PipeCalcs2
+PipeCalcs2();
+#
+#
+NumberOfPipes[tPiperunCounter] := PipeHolderCounter;
+#
+#Error if inputted value is less than 1m
+IF NumberOfPipes[tPiperunCounter] = 0 THEN
+  #
+  WinMessage('ERROR', 'Please input a valid value');
+  NumberOfPipes[tPiperunCounter] := NOVALUE;
+  PipeRunCounter := PipeRunCounter - 1;
+  RETURN 0;
+ENDIF;
+#Calculating length of non-6m pipe. If the pipe would be less than 1m, 1 is added to the value 
+IF NumberOfPipes[tPiperunCounter] > 0 THEN
+  PipeRunHeader[tPiperunCounter] := 'Piperun' & " " & PipeRunCounter;
+  PipeHolder := PipeHolder + 6;
+  IF PipeHolder >= 1 THEN
+    PipeLengthOdd1[tPiperunCounter] := PipeHolder;
+    PipeLengthOdd2[tPiperunCounter] := NOVALUE;
+    Distance[FeatureCounter] := PipeLengthOdd1[tPiperunCounter];
+    FeatureCounter := FeatureCounter + 1;
+  ELSE
+    IF NumberOfPipes[tPiperunCounter] <> 1 THEN
+      PipeLengthOdd1[tPiperunCounter] := PipeHolder + 1;
+      PipeLengthOdd2[tPiperunCounter] := 5;
+      Distance[FeatureCounter] := PipeLengthOdd1[tPiperunCounter];
+      FeatureCounter := FeatureCounter + 1;
+      Distance[FeatureCounter] := PipeLengthOdd1[tPiperunCounter];
+      FeatureCounter := FeatureCounter + 1;
+    ELSE
+      PipeLengthOdd1[tPiperunCounter] := PipeHolder;
+    ENDIF;
+  ENDIF;
+ENDIF;
+#Finding the number of 6m pipes
+PipeHolder := 0;
+IF PipeLengthOdd1[tPiperunCounter] = ANYVALUE THEN
+  PipeHolder := PipeHolder + 1;
+ENDIF;
+IF PipeLengthOdd2[tPiperunCounter] = ANYVALUE THEN
+  PipeHolder := PipeHolder + 1;
+ENDIF;
+#Was [Piperuncounter]
+PipeworkNumberof6mRun1 := NumberOfPipes[tPiperunCounter] - PipeHolder;
+#
+#Reset Input parameter TotalPipeLength
+TotalPipeLengthHolder[tPiperunCounter] := TotalPipeLength;
+TotalPipeLength := 0;
+#
+##
+CompOrPipe := 'P';
+NumberHolder := 1;
+RETURN;
