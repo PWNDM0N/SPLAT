@@ -1,0 +1,36 @@
+#Not in use - focussing on bends
+#I need to change number 6mpipes, ect over to being list features
+IF iHolder2 = NOVALUE THEN
+  iHolder2 := 1;
+ENDIF;
+IF Termination[LineNumber] = 'TB' THEN
+  #bend radius calculation
+  L_Trajectory[iHolder2] := 0;
+  #alpha: 
+  #(In Degrees) alphai is the angle between zi-1 and zi along xi
+  ThetaY_Trajectory[iHolder2] := 0;
+  #d:     
+  #di is the distance between zi-1 and xi along the direction of zi-1
+  R_Trajectory[iHolder2] := 0;
+  #
+  #theta: 
+  #(In Degrees) thetai is the angle between xi-1 and xi along zi-1
+  ThetaZ_Trajectory[iHolder2] := 0;
+  #
+  BendOffset := 0;
+  PipeLengthHolder := BendOffset;
+  #setting 2 points in the dh - on for the initail offset then again to do direction
+  #
+  Type[iHolder2] := FilenameTB;
+  #Calcs Matrix transformation
+  Transformation_Matrix_Pipe();
+  #Writes values to excel
+  DHExcel();
+  #
+  PipeLengthHolder := 1;
+  Type[iHolder2] := FileNameFFK;
+  Transformation_Matrix_FFK();
+  #Writes values to excel
+  DHExcel();
+ENDIF;
+RETURN;
