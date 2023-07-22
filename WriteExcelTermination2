@@ -1,0 +1,28 @@
+#D.Wilson 04/01/23
+#Looping method to set excel table values iteratively depending on number of piperuns inputted
+#
+#
+#The values are in order in the excel table, loops from the Piperun holder to fill in rows as required
+#Finding appropriate cell numbers
+IF CompOrPipe = 'C' THEN
+  tCounter := LineNumber * 6;
+  t1 := tCounter - 5;
+  t2 := t1 + 1;
+  t3 := t2 + 1;
+  t4 := t3 + 1;
+  t5 := t4 + 1;
+  t6 := t5 + 1;
+  #
+  #setting values in excel Sheet, Row, Column
+  t := PipeRunCounter & StrHolder;
+  XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, t1, 2, t);
+  XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, t1, 1, "ComponentID");
+  XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, t1, 3, "Text");
+  #
+  XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, t2, 2, Termination[LineNumber]);
+  XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, t2, 1, "Termination");
+  XLSXExec(XLSXHandle, 'SET_CELL_VALUE', 1, t2, 3, "Text");
+  #
+  #
+ENDIF;
+RETURN;
