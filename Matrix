@@ -1,0 +1,54 @@
+#
+#
+IF NeoHolder = 0 THEN
+  NeoHolder := 1;
+  MatrixZeroSetting();
+  #DHExcel();
+ENDIF;
+#
+#iHolder2 should equal pipeholder
+#setting new table values, multiplying current matrix by next one.
+IF iHolder2 = 1 THEN
+  #
+  Row1Column1[iHolder2] := Row1Column1[iHolder2] * CurrentRow1Column1[iHolder2] + Row1Column2[iHolder2] * CurrentRow2Column1[iHolder2] + Row1Column3[iHolder2] * CurrentRow3Column1[iHolder2] + Row1Column4[iHolder2] * CurrentRow4Column1[iHolder2];
+  Row1Column2[iHolder2] := Row1Column1[iHolder2] * CurrentRow1Column2[iHolder2] + Row1Column2[iHolder2] * CurrentRow2Column2[iHolder2] + Row1Column3[iHolder2] * CurrentRow3Column2[iHolder2] + Row1Column4[iHolder2] * CurrentRow4Column2[iHolder2];
+  Row1Column3[iHolder2] := Row1Column1[iHolder2] * CurrentRow1Column3[iHolder2] + Row1Column2[iHolder2] * CurrentRow2Column3[iHolder2] + Row1Column3[iHolder2] * CurrentRow3Column3[iHolder2] + Row1Column4[iHolder2] * CurrentRow4Column3[iHolder2];
+  Row1Column4[iHolder2] := Row1Column1[iHolder2] * CurrentRow1Column4[iHolder2] + Row1Column2[iHolder2] * CurrentRow2Column4[iHolder2] + Row1Column3[iHolder2] * CurrentRow3Column4[iHolder2] + Row1Column4[iHolder2] * CurrentRow4Column4[iHolder2];
+  Row2Column1[iHolder2] := Row2Column1[iHolder2] * CurrentRow1Column1[iHolder2] + Row2Column2[iHolder2] * CurrentRow2Column1[iHolder2] + Row2Column3[iHolder2] * CurrentRow3Column1[iHolder2] + Row2Column4[iHolder2] * CurrentRow4Column1[iHolder2];
+  Row2Column2[iHolder2] := Row2Column1[iHolder2] * CurrentRow1Column2[iHolder2] + Row2Column2[iHolder2] * CurrentRow2Column2[iHolder2] + Row2Column3[iHolder2] * CurrentRow3Column2[iHolder2] + Row2Column4[iHolder2] * CurrentRow4Column2[iHolder2];
+  Row2Column3[iHolder2] := Row2Column1[iHolder2] * CurrentRow1Column3[iHolder2] + Row2Column2[iHolder2] * CurrentRow2Column3[iHolder2] + Row2Column3[iHolder2] * CurrentRow3Column3[iHolder2] + Row2Column4[iHolder2] * CurrentRow4Column3[iHolder2];
+  Row2Column4[iHolder2] := Row2Column1[iHolder2] * CurrentRow1Column4[iHolder2] + Row2Column2[iHolder2] * CurrentRow2Column4[iHolder2] + Row2Column3[iHolder2] * CurrentRow3Column4[iHolder2] + Row2Column4[iHolder2] * CurrentRow4Column4[iHolder2];
+  Row3Column1[iHolder2] := Row3Column1[iHolder2] * CurrentRow1Column1[iHolder2] + Row3Column2[iHolder2] * CurrentRow2Column1[iHolder2] + Row3Column3[iHolder2] * CurrentRow3Column1[iHolder2] + Row3Column4[iHolder2] * CurrentRow4Column1[iHolder2];
+  Row3Column2[iHolder2] := Row3Column1[iHolder2] * CurrentRow1Column2[iHolder2] + Row3Column2[iHolder2] * CurrentRow2Column2[iHolder2] + Row3Column3[iHolder2] * CurrentRow3Column2[iHolder2] + Row3Column4[iHolder2] * CurrentRow4Column2[iHolder2];
+  Row3Column3[iHolder2] := Row3Column1[iHolder2] * CurrentRow1Column3[iHolder2] + Row3Column2[iHolder2] * CurrentRow2Column3[iHolder2] + Row3Column3[iHolder2] * CurrentRow3Column3[iHolder2] + Row3Column4[iHolder2] * CurrentRow4Column3[iHolder2];
+  Row3Column4[iHolder2] := Row3Column1[iHolder2] * CurrentRow1Column4[iHolder2] + Row3Column2[iHolder2] * CurrentRow2Column4[iHolder2] + Row3Column3[iHolder2] * CurrentRow3Column4[iHolder2] + Row3Column4[iHolder2] * CurrentRow4Column4[iHolder2];
+  Row4Column1[iHolder2] := Row4Column1[iHolder2] * CurrentRow1Column1[iHolder2] + Row4Column2[iHolder2] * CurrentRow2Column1[iHolder2] + Row4Column3[iHolder2] * CurrentRow3Column1[iHolder2] + Row4Column4[iHolder2] * CurrentRow4Column1[iHolder2];
+  Row4Column2[iHolder2] := Row4Column1[iHolder2] * CurrentRow1Column2[iHolder2] + Row4Column2[iHolder2] * CurrentRow2Column2[iHolder2] + Row4Column3[iHolder2] * CurrentRow3Column2[iHolder2] + Row4Column4[iHolder2] * CurrentRow4Column2[iHolder2];
+  Row4Column3[iHolder2] := Row4Column1[iHolder2] * CurrentRow1Column3[iHolder2] + Row4Column2[iHolder2] * CurrentRow2Column3[iHolder2] + Row4Column3[iHolder2] * CurrentRow3Column3[iHolder2] + Row4Column4[iHolder2] * CurrentRow4Column3[iHolder2];
+  Row4Column4[iHolder2] := Row4Column1[iHolder2] * CurrentRow1Column4[iHolder2] + Row4Column2[iHolder2] * CurrentRow2Column4[iHolder2] + Row4Column3[iHolder2] * CurrentRow3Column4[iHolder2] + Row4Column4[iHolder2] * CurrentRow4Column4[iHolder2];
+  #
+ELSE
+  t := iHolder2 - 1;
+  Row1Column1[iHolder2] := Row1Column1[t] * CurrentRow1Column1[iHolder2] + Row1Column2[t] * CurrentRow2Column1[iHolder2] + Row1Column3[t] * CurrentRow3Column1[iHolder2] + Row1Column4[t] * CurrentRow4Column1[iHolder2];
+  Row1Column2[iHolder2] := Row1Column1[t] * CurrentRow1Column2[iHolder2] + Row1Column2[t] * CurrentRow2Column2[iHolder2] + Row1Column3[t] * CurrentRow3Column2[iHolder2] + Row1Column4[t] * CurrentRow4Column2[iHolder2];
+  Row1Column3[iHolder2] := Row1Column1[t] * CurrentRow1Column3[iHolder2] + Row1Column2[t] * CurrentRow2Column3[iHolder2] + Row1Column3[t] * CurrentRow3Column3[iHolder2] + Row1Column4[t] * CurrentRow4Column3[iHolder2];
+  Row1Column4[iHolder2] := Row1Column1[t] * CurrentRow1Column4[iHolder2] + Row1Column2[t] * CurrentRow2Column4[iHolder2] + Row1Column3[t] * CurrentRow3Column4[iHolder2] + Row1Column4[t] * CurrentRow4Column4[iHolder2];
+  Row2Column1[iHolder2] := Row2Column1[t] * CurrentRow1Column1[iHolder2] + Row2Column2[t] * CurrentRow2Column1[iHolder2] + Row2Column3[t] * CurrentRow3Column1[iHolder2] + Row2Column4[t] * CurrentRow4Column1[iHolder2];
+  Row2Column2[iHolder2] := Row2Column1[t] * CurrentRow1Column2[iHolder2] + Row2Column2[t] * CurrentRow2Column2[iHolder2] + Row2Column3[t] * CurrentRow3Column2[iHolder2] + Row2Column4[t] * CurrentRow4Column2[iHolder2];
+  Row2Column3[iHolder2] := Row2Column1[t] * CurrentRow1Column3[iHolder2] + Row2Column2[t] * CurrentRow2Column3[iHolder2] + Row2Column3[t] * CurrentRow3Column3[iHolder2] + Row2Column4[t] * CurrentRow4Column3[iHolder2];
+  Row2Column4[iHolder2] := Row2Column1[t] * CurrentRow1Column4[iHolder2] + Row2Column2[t] * CurrentRow2Column4[iHolder2] + Row2Column3[t] * CurrentRow3Column4[iHolder2] + Row2Column4[t] * CurrentRow4Column4[iHolder2];
+  Row3Column1[iHolder2] := Row3Column1[t] * CurrentRow1Column1[iHolder2] + Row3Column2[t] * CurrentRow2Column1[iHolder2] + Row3Column3[t] * CurrentRow3Column1[iHolder2] + Row3Column4[t] * CurrentRow4Column1[iHolder2];
+  Row3Column2[iHolder2] := Row3Column1[t] * CurrentRow1Column2[iHolder2] + Row3Column2[t] * CurrentRow2Column2[iHolder2] + Row3Column3[t] * CurrentRow3Column2[iHolder2] + Row3Column4[t] * CurrentRow4Column2[iHolder2];
+  Row3Column3[iHolder2] := Row3Column1[t] * CurrentRow1Column3[iHolder2] + Row3Column2[t] * CurrentRow2Column3[iHolder2] + Row3Column3[t] * CurrentRow3Column3[iHolder2] + Row3Column4[t] * CurrentRow4Column3[iHolder2];
+  Row3Column4[iHolder2] := Row3Column1[t] * CurrentRow1Column4[iHolder2] + Row3Column2[t] * CurrentRow2Column4[iHolder2] + Row3Column3[t] * CurrentRow3Column4[iHolder2] + Row3Column4[t] * CurrentRow4Column4[iHolder2];
+  Row4Column1[iHolder2] := Row4Column1[t] * CurrentRow1Column1[iHolder2] + Row4Column2[t] * CurrentRow2Column1[iHolder2] + Row4Column3[t] * CurrentRow3Column1[iHolder2] + Row4Column4[t] * CurrentRow4Column1[iHolder2];
+  Row4Column2[iHolder2] := Row4Column1[t] * CurrentRow1Column2[iHolder2] + Row4Column2[t] * CurrentRow2Column2[iHolder2] + Row4Column3[t] * CurrentRow3Column2[iHolder2] + Row4Column4[t] * CurrentRow4Column2[iHolder2];
+  Row4Column3[iHolder2] := Row4Column1[t] * CurrentRow1Column3[iHolder2] + Row4Column2[t] * CurrentRow2Column3[iHolder2] + Row4Column3[t] * CurrentRow3Column3[iHolder2] + Row4Column4[t] * CurrentRow4Column3[iHolder2];
+  Row4Column4[iHolder2] := Row4Column1[t] * CurrentRow1Column4[iHolder2] + Row4Column2[t] * CurrentRow2Column4[iHolder2] + Row4Column3[t] * CurrentRow3Column4[iHolder2] + Row4Column4[t] * CurrentRow4Column4[iHolder2];
+ENDIF;
+#
+#
+iHolder2 := iHolder2 + 1;
+#
+#
+RETURN;
