@@ -1,0 +1,27 @@
+#D.Wilson 04/04/23
+#calculates the DH params when
+IF PipeLengthHolder <> 0 THEN
+  ##
+  alpha := UIBendAngle;
+  theta := 180 - 90 - alpha;
+  #trig
+  #Offset in  the Z
+  z_offset := (sin(alpha) * PipeLengthHolder);
+  #Offset in the z
+  y_offset := sin(theta) / (sin(90) / PipeLengthHolder);
+  #Already moved in this direction in DHMaster()
+  #ai is the distance between zi-1 and xi along the direction of xi
+  L_Trajectory[iHolder2] := PipeLengthHolder;
+  #alpha: 
+  #(In Degrees) alphai is the angle between zi-1 and zi along xi
+  ThetaY_Trajectory[iHolder2] := UIBendAngle;
+  #d:     
+  #di is the distance between zi-1 and xi along the direction of zi-1
+  R_Trajectory[iHolder2] := z_offset;
+  #
+  #theta: 
+  #(In Degrees) thetai is the angle between xi-1 and xi along zi-1
+  ThetaZ_Trajectory[iHolder2] := theta;
+ENDIF;
+#
+RETURN;
