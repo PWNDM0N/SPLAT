@@ -1,0 +1,29 @@
+#D.Wilson 21.02.12
+#This is the button on UI to export system
+#
+IF WinMessage('QUESTION', 'Do you want to export this system?') THEN
+  #
+  #Moved everything to the end
+  #for i := 1 to linenumber do
+  #LineNumber := LineNumber + 1
+  #
+  #
+  #
+  #closing the piperun excel file handle
+  XLSXFilePiperun := XLSXExec(XLSXHandle, "Get_XLSX");
+  #
+  XLSXClose(XLSXHandle);
+  #writes piperun excel file
+  FileWriteBin(Fhandle, XLSXFilePiperun, 'RAW');
+  FileClose(Fhandle);
+  #0
+  #Create and write pipe excel file into downloads
+  WriteExcelPipe();
+  #
+  #copy inventor files to downloads
+  SaveIPT();
+  #
+  SpoonHolder := 2;
+ELSE
+ENDIF;
+RETURN;
