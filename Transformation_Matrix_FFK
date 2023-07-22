@@ -1,0 +1,29 @@
+Theta := 0;
+Alpha := 0;
+a := 1;
+d := 0;
+#
+CurrentRow1Column1[iHolder2] := cos(Theta);
+CurrentRow1Column2[iHolder2] := -sin(Theta) * cos(Theta);
+CurrentRow1Column3[iHolder2] := sin(Theta) * sin(Alpha);
+CurrentRow1Column4[iHolder2] := a * cos(Theta);
+#
+CurrentRow2Column1[iHolder2] := sin(Theta);
+CurrentRow2Column2[iHolder2] := cos(Theta) * cos(Alpha);
+CurrentRow2Column3[iHolder2] := -cos(Theta) * sin(Alpha);
+CurrentRow2Column4[iHolder2] := a * sin(Theta);
+#
+CurrentRow3Column1[iHolder2] := 0;
+CurrentRow3Column2[iHolder2] := sin(Alpha);
+CurrentRow3Column3[iHolder2] := cos(Alpha);
+CurrentRow3Column4[iHolder2] := d;
+#
+CurrentRow4Column1[iHolder2] := 0;
+CurrentRow4Column2[iHolder2] := 0;
+CurrentRow4Column3[iHolder2] := 0;
+CurrentRow4Column4[iHolder2] := 1;
+#
+#Matrix multiplies the existing co-ordinate system by this new transform to find the position from 0,0,0
+#Matrix();
+MatrixXYZ();
+RETURN;
