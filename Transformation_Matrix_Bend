@@ -1,0 +1,112 @@
+CASE (UIBendAngle)
+    #When BA is vertical (0 or 180), Theta is the angle between Zi-1 and Xi along Zi-1
+  IS 0 DO
+    Theta := 0;
+    Alpha := -90;
+    d := BendOffset;
+    a := BendOffset;
+  IS 90 DO
+    #When BA is horizontal (90 or 270), Alpha is the angle between Zi-1 and Zi along Xi
+    Alpha := 90;
+    Theta := 90;
+    d := 0;
+    a := BendOffset;
+  IS 180 DO
+    #When BA is vertical (0 or 180), Theta is the angle between Zi-1 and Xi along Zi-1
+    Alpha := 90;
+    Theta := 0;
+    d := BendOffset;
+    a := BendOffset;
+  IS 270 DO
+    #When BA is horizontal (90 or 270), Alpha is the angle between Zi-1 and Zi along Xi
+    Alpha := 90;
+    Theta := -90;
+    d := 0;
+    a := BendOffset;
+ENDCASE;
+#
+CurrentRow1Column1[iHolder2] := cos(Theta);
+CurrentRow1Column2[iHolder2] := -sin(Theta) * cos(Theta);
+#
+#cheat
+CurrentRow1Column3[iHolder2] := sin(Alpha) * sin(-Alpha);
+#old
+#CurrentRow1Column3[iHolder2] := sin(Theta) * sin(Alpha);
+#
+#cheat
+CurrentRow1Column4[iHolder2] := a * sin(Alpha);
+#old
+#CurrentRow1Column4[iHolder2] := a * cos(Theta);
+#
+#cheat
+CurrentRow2Column1[iHolder2] := sin(-Theta);
+#old
+#CurrentRow2Column1[iHolder2] := sin(Theta);
+#
+CurrentRow2Column2[iHolder2] := cos(Theta) * cos(Alpha);
+CurrentRow2Column3[iHolder2] := -cos(Theta) * sin(Alpha);
+CurrentRow2Column4[iHolder2] := a * sin(-Theta);
+#
+CurrentRow3Column1[iHolder2] := 0;
+CurrentRow3Column2[iHolder2] := sin(Alpha);
+CurrentRow3Column3[iHolder2] := cos(Alpha);
+CurrentRow3Column4[iHolder2] := d;
+#
+CurrentRow4Column1[iHolder2] := 0;
+CurrentRow4Column2[iHolder2] := 0;
+CurrentRow4Column3[iHolder2] := 0;
+CurrentRow4Column4[iHolder2] := 1;
+#oldold
+#CurrentRow1Column1[iHolder2] := cos(-1 * UIBendAngle);
+#CurrentRow1Column2[iHolder2] := 0;
+#CurrentRow1Column3[iHolder2] := sin(-1 * UIBendAngle);
+#CurrentRow1Column4[iHolder2] := BendOffset;
+#CurrentRow2Column1[iHolder2] := sin(-1 * UIBendAngle);
+#CurrentRow2Column2[iHolder2] := 0;
+#CurrentRow2Column3[iHolder2] := (-1) * cos(-1 * UIBendAngle);
+#CurrentRow2Column4[iHolder2] := sin(180 - 90 - UIBendAngle) / BendOffset;
+#CurrentRow3Column1[iHolder2] := 0;
+#CurrentRow3Column2[iHolder2] := 1;
+#CurrentRow3Column3[iHolder2] := 0;
+#CurrentRow3Column4[iHolder2] := BendOffset * sin(UIBendAngle);
+#CurrentRow4Column1[iHolder2] := 0;
+#CurrentRow4Column2[iHolder2] := 0;
+#CurrentRow4Column3[iHolder2] := 0;
+#CurrentRow4Column4[iHolder2] := 1;
+#
+#old
+#
+#CurrentRow1Column1[iHolder2] := cos(-1 * UIBendAngle) * cos(-1 * UIBendAngle);
+#CurrentRow1Column2[iHolder2] := ((-1) * sin(-1 * UIBendAngle)) * cos(-1 * UIBendAngle);
+#CurrentRow1Column3[iHolder2] := sin(-1 * UIBendAngle);
+#CurrentRow1Column4[iHolder2] := BendOffset;
+#CurrentRow2Column1[iHolder2] := sin(-1 * UIBendAngle) * (-1 * sin(-1 * UIBendAngle));
+#CurrentRow2Column2[iHolder2] := sin(-1 * UIBendAngle) * cos(-1 * UIBendAngle);
+#CurrentRow2Column3[iHolder2] := (-1) * cos(-1 * UIBendAngle);
+#CurrentRow2Column4[iHolder2] := BendOffset * sin(-1 * UIBendAngle);
+#CurrentRow3Column1[iHolder2] := cos(-1 * UIBendAngle);
+#CurrentRow3Column2[iHolder2] := cos(-1 * UIBendAngle);
+#CurrentRow3Column3[iHolder2] := 0;
+#CurrentRow3Column4[iHolder2] := sin(180 - 90 - UIBendAngle) / BendOffset;
+#CurrentRow4Column1[iHolder2] := 0;
+#CurrentRow4Column2[iHolder2] := 0;
+#CurrentRow4Column3[iHolder2] := 0;
+#CurrentRow4Column4[iHolder2] := 1;
+#
+#
+IF SpoonHolder = 1 THEN
+  #Transformation_Matrix();
+ELSE
+  SpoonHolder := 1;
+ENDIF;
+#
+#
+#
+#testing
+#Matrix();
+MatrixXYZ();
+#
+#
+#
+#
+RETURN;
