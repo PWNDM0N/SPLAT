@@ -1,0 +1,22 @@
+#D.Wilson 01/01/22
+#Calculating data about the Piperoute from user input values
+#
+#PipeholderCounter  and PipeHolder used in PipeCalcs() and Pipecalcs2() as intermidatary values
+PipeCalcs();
+#
+#
+#
+#D.Wilson 02/01/23
+#Uses existing Excel sheet to create output excel file - Piperun uses pipes created in WriteExcelPipe();
+WriteExcelPiperun();
+#
+#
+#D.Wilson 04/04/23
+#assigns DH parameters used for inserting a part into a model
+DHCalcs();
+#
+#for turning self off - next item expected is a component
+ADD_PIPE_LENGTH_HOLDER := 1;
+ADD_TERMINATION_HOLDER := 0;
+#
+RETURN;
