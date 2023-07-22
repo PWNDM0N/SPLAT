@@ -1,0 +1,10 @@
+#D.Wilson 01/01/23
+#Finding initial value for the number of pipes in a run, repeats until Pipeholder is below 0
+IF PipeHolder > 0 THEN
+  PipeHolderCounter := PipeHolderCounter + 1;
+  PipeHolder := PipeHolder - 6;
+  FeatureCounter := FeatureCounter + 1;
+  Distance[FeatureCounter] := 6000;
+  PipeCalcs2();
+ENDIF;
+RETURN;
