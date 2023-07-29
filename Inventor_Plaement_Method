@@ -1,0 +1,146 @@
+
+'file path to use
+oPath = ThisDoc.Path & "\"
+
+' set a reference to the assembly component definintion.
+' This assumes an assembly document is open.
+Dim oAsmCompDef As AssemblyComponentDefinition
+oAsmCompDef = ThisApplication.ActiveDocument.ComponentDefinition
+
+' Set a reference to the transient geometry object.
+Dim oTG As TransientGeometry
+oTG = ThisApplication.TransientGeometry
+    
+' Create a matrix.  
+Dim oMatrix As Matrix
+oMatrix = oTG.CreateMatrix
+
+'Iterate through all of the occurrences
+Dim oOccurrence As ComponentOccurrence
+
+Dim oQuestion As String
+Parameter3 = 0
+Parameter5 = 1
+i = 0
+
+While True
+Question = 1
+'MessageBox.Show("Value of i is:" & i & "    Last Placed Item" & oFile, "Info", MessageBoxButtons.YesNo)
+
+If Question =  1 Then
+oCounter = 0
+Else 
+oCounter = 1
+End If
+	i = i + 1
+	
+GoExcel.Open("Pipework.xlsx", "DHParams")
+
+Question = "A" & (i + 1)
+oQuery = "E" & (i + 2)
+Parameter2 = GoExcel.CellValue("Pipework.xlsx", "DHParams", Question)
+ofile = GoExcel.CellValue("Pipework.xlsx", "DHParams", oQuery)
+
+j = i + 1
+
+oR1C1 = "F" & j
+oR1C2 = "G" & j
+oR1C3 = "H" & j
+oR1C4 = "I" & j
+oR2C1 = "J" & j
+oR2C2 = "K" & j
+oR2C3 = "L" & j
+oR2C4 = "M" & j
+oR3C1 = "N" & j
+oR3C2 = "O" & j
+oR3C3 = "P" & j
+oR3C4 = "Q" & j
+oR4C1 = "R" & j
+oR4C2 = "S" & j
+oR4C3 = "T" & j
+oR4C4 = "U" & j
+
+If ofile = "Bend.iam" Then
+	j = i + 2
+oR1C1 = "F" & j
+oR1C2 = "G" & j
+oR1C3 = "H" & j
+oR1C4 = "I" & j
+oR2C1 = "J" & j
+oR2C2 = "K" & j
+oR2C3 = "L" & j
+oR2C4 = "M" & j
+oR3C1 = "N" & j
+oR3C2 = "O" & j
+oR3C3 = "P" & j
+oR3C4 = "Q" & j
+oR4C1 = "R" & j
+oR4C2 = "S" & j
+oR4C3 = "T" & j
+oR4C4 = "U" & j
+	End If
+
+R1C1 = GoExcel.CellValue("Pipework.xlsx", "DHParams", oR1C1)
+R1C2 = GoExcel.CellValue("Pipework.xlsx", "DHParams", oR1C2)
+R1C3 = GoExcel.CellValue("Pipework.xlsx", "DHParams", oR1C3)
+R1C4 = GoExcel.CellValue("Pipework.xlsx", "DHParams", oR1C4)
+R2C1 = GoExcel.CellValue("Pipework.xlsx", "DHParams", oR2C1)
+R2C2 = GoExcel.CellValue("Pipework.xlsx", "DHParams", oR2C2)
+R2C3 = GoExcel.CellValue("Pipework.xlsx", "DHParams", oR2C3)
+R2C4 = GoExcel.CellValue("Pipework.xlsx", "DHParams", oR2C4)
+R3C1 = GoExcel.CellValue("Pipework.xlsx", "DHParams", oR3C1)
+R3C2 = GoExcel.CellValue("Pipework.xlsx", "DHParams", oR3C2)
+R3C3 = GoExcel.CellValue("Pipework.xlsx", "DHParams", oR3C3)
+R3C4 = GoExcel.CellValue("Pipework.xlsx", "DHParams", oR3C4)
+R4C1 = GoExcel.CellValue("Pipework.xlsx", "DHParams", oR4C1)
+R4C2 = GoExcel.CellValue("Pipework.xlsx", "DHParams", oR4C2)
+R4C3 = GoExcel.CellValue("Pipework.xlsx", "DHParams", oR4C3)
+R4C4 = GoExcel.CellValue("Pipework.xlsx", "DHParams", oR4C4)
+
+'MessageBox.Show(R1C1 & " " & R1C2 & " " & R1C3 & " " & R1C4, "Info", MessageBoxButtons.YesNo)
+
+'doesn't work
+'If ofile = "Bend.iam" Then
+'	ofile = "Pipework" & Parameter5 & ".ipt"
+'R1C4 = R1C4 - 300
+'	End If
+
+ ' Create the matrix and define the desired coordinate system.
+oMatrix.Cell(1, 1) = R1C1
+oMatrix.Cell(1, 2) = R1C2
+oMatrix.Cell(1, 3) = R1C3
+oMatrix.Cell(1, 4) = R1C4/10
+oMatrix.Cell(2, 1) = R2C1
+oMatrix.Cell(2, 2) = R2C2
+oMatrix.Cell(2, 3) = R2C3
+oMatrix.Cell(2, 4) = R2C4/10
+oMatrix.Cell(3, 1) = R3C1
+oMatrix.Cell(3, 2) = R3C2
+oMatrix.Cell(3, 3) = R3C3 
+oMatrix.Cell(3, 4) = R3C4/10
+oMatrix.Cell(4, 1) = R4C1
+oMatrix.Cell(4, 2) = R4C2
+oMatrix.Cell(4, 3) = R4C3
+oMatrix.Cell(4, 4) = R4C4
+
+
+Call GoExcel.Close()
+
+    If ofile = NOVALUE Then Exit While 
+		If oCounter = 1 Then Exit While 
+
+	' Set the translation portion of the matrix so the part will be 
+'positioned at the co-ordinates
+'was Parameter5/10
+'oMatrix.SetTranslation(oTG.CreateVector(0, 0, 0)) 
+
+'place an instance of the component 
+oOccurrence = oAsmCompDef.Occurrences.Add(oPath & ofile, oMatrix) 
+'ground it in place
+oOccurrence.Grounded = True
+	
+End While
+
+	
+	'zoom all
+ThisApplication.ActiveView.Fit
